@@ -1,0 +1,47 @@
+.RegisterCard{
+    display: flex;
+    flex-direction: column;
+    width:40vw;
+    padding: 10vh 30vw 0 30vw;
+    align-items: center;
+}
+h2 {
+    color: whitesmoke;
+    align-self:center ;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    height:auto;
+    padding: 10vh;
+    align-items: self-start;
+    gap: 10px;
+    background-color: black;
+    border-radius: 10px;
+}
+input {
+    height:30px;
+    width:400px;
+    border-radius: 10px;
+}
+button {
+    width:100px;
+    height:30px;
+    border-radius: 10px;
+    font-weight: 700;
+    align-self: center;
+}
+#dont_have{
+    color: white;
+    text-decoration: none;
+    align-self:center;
+}
+a {
+    text-decoration: none;
+    color:aliceblue;
+    font-weight: bold;
+}
+.errors{
+    color: red;
+    margin-top:3px;
+}

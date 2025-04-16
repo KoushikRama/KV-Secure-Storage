@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './register.css';
 import { Link } from 'react-router-dom';
 
 export const Register = () => {
@@ -42,9 +43,10 @@ export const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
+    <div className='RegisterCard'>
+
       <form onSubmit={handleRegister}>
+      <h2>Register</h2>
         <input
           type="text"
           value={username}
@@ -60,8 +62,9 @@ export const Register = () => {
         />
         {errors.password && <span className="errors">{errors.password}</span>}
         <button type="submit">Register</button>
+        <div id='dont_have'><p>Already Registered?<Link to='/'> Login Now</Link> </p></div>
+
       </form>
-      <div id='dont_have'><p>Already Registered?<Link to='/'> Login Now</Link> </p></div>
       <p>{msg}</p>
     </div>
   );

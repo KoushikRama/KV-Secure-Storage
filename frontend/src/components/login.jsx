@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './login.css';
 import { Link } from 'react-router-dom';
 
 export const Login = () => {
@@ -45,11 +46,13 @@ export const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className='LoginCard'>
+      
       <form onSubmit={handleLogin}>
+      <h2>Login</h2>
         <input
           type="text"
+          name='username'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Username"
@@ -64,9 +67,9 @@ export const Login = () => {
         {errors.password && <span className="errors">{errors.password}</span>}
 
         <button type="submit">Login</button>
+        <div id='dont_have'><p>Don't have an Account?<Link to='/register'> Register for Free</Link> </p></div>
 
       </form>
-      <div id='dont_have'><p>Don't have an Account?<Link to='/register'> Register for Free</Link> </p></div>
       <p>{msg}</p>
     </div>
   );
