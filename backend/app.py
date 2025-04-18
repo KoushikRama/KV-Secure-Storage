@@ -7,18 +7,18 @@ import binascii
 from psycopg2 import sql
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)  # We need CORS to connect 2 different domains localhost:8000( backend ) with localhost:3000 (frontend)
 
-# Database connection parameters
+# Database connections Variables
 DB_HOST = 'localhost'
 DB_PORT = '5432'
 DB_NAME = 'SecurePasswordStorage'
 DB_USER = 'postgres'
 DB_PASSWORD = '1673'
 
-# Establish database connection
+# Establishing the database connection
 def get_db_connection():
-    conn = psycopg2.connect(
+    conn = psycopg2.connect(  # We use psycopg2 to connect to postgres database
         host=DB_HOST,
         port=DB_PORT,
         dbname=DB_NAME,
@@ -27,21 +27,19 @@ def get_db_connection():
     )
     return conn
 
-# Utility function to generate salt and hash password
+# Generating random salt
 def generate_salt():
-    return os.urandom(16)  # 16 bytes salt
+    return os.urandom(16)  # 16 bytes salt  In Python, urandom is a function provided by the os module that generates random bytes suitable for cryptographic use.
+    # It reads from the operating system's source of randomness, which is typically more secure and unpredictable than other random number generators.
 
 def hash_password(password, salt):
-    """Return the hashed password and salt using PBKDF2"""
     return hashlib.pbkdf2_hmac('sha256', password.encode(), salt, 100000)
 
-# Utility function to verify password
 def verify_password(stored_hash, password, salt):
-    """Verify the password against the stored hash"""
     hashed_password = hash_password(password, salt)
     return stored_hash == hashed_password
 
-# Register endpoint
+# Register Request endpoint
 @app.route('/auth/register/', methods=['POST'])
 def register():
     data = request.get_json()
@@ -51,15 +49,18 @@ def register():
     if not username or not password:
         return jsonify({'error': 'Username and password are required'}), 400
 
-    # Generate salt and hashed password
+    # Generating the salt and hashing the password
     salt = generate_salt()
     hashed_password = hash_password(password, salt)
 
-    # Store the username, hashed password, and salt in the database
     conn = get_db_connection()
     cur = conn.cursor()
+    '''A cursor allows you to execute SQL commands and queries, and fetch data from the database.
 
-    # Avoid try-except here, handle any issues directly
+        Creating a Connection: First, you need to establish a connection to the database.
+        Creating a Cursor: Once you have a connection, you create a cursor object using the connection.'''
+
+    # we'll be stroring the username, hashed password, and salt in the database
     cur.execute(
         sql.SQL("INSERT INTO users (username, password, salt) VALUES (%s, %s, %s)"),
         [username, binascii.hexlify(hashed_password).decode(), binascii.hexlify(salt).decode()]
@@ -71,7 +72,7 @@ def register():
     
     return jsonify({'message': 'User registered successfully'}), 201
 
-# Login endpoint
+# Login Request endpoint
 @app.route('/auth/login/', methods=['POST'])
 def login():
     data = request.get_json()
@@ -81,11 +82,11 @@ def login():
     if not username or not password:
         return jsonify({'error': 'Username and password are required'}), 400
 
-    # Retrieve user from database
+    # Retrieving user data from database
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT username, password, salt FROM users WHERE username = %s', [username])
-    user = cur.fetchone()
+    cur.execute('SELECT username, password, salt FROM users WHERE username = %s', [username]) #The password stored is hashed passwword
+    user = cur.fetchone() #This method retrieves the next row of a query result set, returning a single sequence, or None if no more rows are available.
 
     if user is None:
         return jsonify({'error': 'Invalid username or password'}), 400
