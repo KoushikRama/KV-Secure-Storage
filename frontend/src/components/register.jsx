@@ -43,10 +43,12 @@ export const Register = () => {
   };
 
   return (
+    <div>
+    <h1>KV Secure Storage</h1>
     <div className='RegisterCard'>
 
       <form onSubmit={handleRegister}>
-      <h2>Register</h2>
+      <h2 className='RegisterTitle'>Register</h2>
         <input
           type="text"
           value={username}
@@ -66,6 +68,7 @@ export const Register = () => {
 
       </form>
       <p>{msg}</p>
+    </div>
     </div>
   );
 }

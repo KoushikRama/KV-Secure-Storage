@@ -5,7 +5,7 @@
     padding: 10vh 30vw 0 30vw;
     align-items: center;
 }
-h2 {
+.RegisterTitle {
     color: whitesmoke;
     align-self:center ;
 }

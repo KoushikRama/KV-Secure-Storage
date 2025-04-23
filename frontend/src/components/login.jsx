@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './login.css';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [msg, setMsg] = useState('');
@@ -11,7 +13,15 @@ export const Login = () => {
     username:'',
     password:''
     });
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
 
+  const closeDialog = () => {
+      setIsDialogOpen(false);
+      if (dialogMessage.includes('Login')) {
+          navigate('/dashboard');
+      } 
+  }
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -36,20 +46,28 @@ export const Login = () => {
     try {
       const response = await axios.post('http://localhost:8000/auth/login/', {
         username,
-        password,
+        password
       });
-
       setMsg(response.data.message);
+      setIsDialogOpen(true);
+      setDialogMessage(response.data.message);
+      localStorage.setItem('username', response.data.username);
+      localStorage.setItem('user_type', response.data.user_type);
+
+      
     } catch (error) {
       setMsg(error.response?.data?.error || 'An error occurred');
     }
   };
 
   return (
+    <div>
+          <h1>KV Secure Storage</h1>
+
     <div className='LoginCard'>
       
       <form onSubmit={handleLogin}>
-      <h2>Login</h2>
+      <h2 className='LoginTitle'>Login</h2>
         <input
           type="text"
           name='username'
@@ -70,7 +88,15 @@ export const Login = () => {
         <div id='dont_have'><p>Don't have an Account?<Link to='/register'> Register for Free</Link> </p></div>
 
       </form>
-      <p>{msg}</p>
+      {isDialogOpen && (
+                <div className="dialogBoxLogin">
+                    <div className="dialogContentLogin">
+                        <p>{msg}</p>
+                        <button onClick={closeDialog}>OK</button>
+                    </div>
+                </div>
+            )}
+    </div>
     </div>
   );
 }
