@@ -16,10 +16,10 @@ The system balances **security** and **usability** by introducing deliberate com
 ---
 
 ## 📘 Abstract
-> This project presents a password storage system using a PBKDF2 variant with SHA-256 hashing, salting, and HMAC to resist brute-force and rainbow-table attacks.  
-> The implementation—built with **Python (Flask)**, **PostgreSQL**, and a **React-based UI**—offers an effective balance between system performance and password security.  
-> Benchmarks show 100 000 iterations producing ~1 s authentication latency, providing strong security without degrading user experience.  
-> Future work includes Argon2 integration, memory-hardening, modular algorithm support, and hardware-based randomness.
+This project presents a password storage system using a PBKDF2 variant with SHA-256 hashing, salting, and HMAC to resist brute-force and rainbow-table attacks.  
+The implementation—built with **Python (Flask)**, **PostgreSQL**, and a **React-based UI**—offers an effective balance between system performance and password security.  
+Benchmarks show 100 000 iterations producing ~1 s authentication latency, providing strong security without degrading user experience.  
+Future work includes Argon2 integration, memory-hardening, modular algorithm support, and hardware-based randomness.
 
 ---
 
