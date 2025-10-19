@@ -31,7 +31,7 @@ backend/ → Flask REST API implementing PBKDF2-HMAC-SHA256
 
 database/ → PostgreSQL (secure storage for salts and hashes)
 
-![Alt text](images/KV secure storage architecture.png)
+![Alt text](images/KV_secure_storage_architecture.png)
 
 
 ### 🧰 Technologies
