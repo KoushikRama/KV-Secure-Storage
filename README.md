@@ -115,7 +115,7 @@ Once both servers are running:
 ## 📄 Project Documentation
 
 - 📘 [Final Report (PDF)](./SWE681_FinalProject_Report_Group_05.pdf)  
-- 📊 [Presentation Slides (PPTX)](./SWE681_FinalProject_Presentation_Group_05.pptx)
+- 📊 [Presentation Slides (PPTX)]([./SWE681_FinalProject_Presentation_Group_05.pptx](https://github.com/KoushikRama/Secure-Password-Storing-Tool/blob/main/SWE681_FinalProject_Presentation_Group_05.pptx))
 
 ---
 
