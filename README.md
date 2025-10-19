@@ -26,8 +26,12 @@ The system balances **security** and **usability** by introducing deliberate com
 ## ⚙️ Architecture
 
 frontend/ → React UI for password management
+
 backend/ → Flask REST API implementing PBKDF2-HMAC-SHA256
+
 database/ → PostgreSQL (secure storage for salts and hashes)
+
+![Alt text](images/KV secure storage architecture.png)
 
 
 ### 🧰 Technologies
